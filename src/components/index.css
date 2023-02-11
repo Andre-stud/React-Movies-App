@@ -1,0 +1,113 @@
+@import url("../tabs/tabs.css");
+@import url("../spinner/spinner.css");
+@import url("../pagination/pagination.css");
+
+body{
+    margin: 0px;
+    background-color: #E5E5E5;;
+}
+
+.body{
+    max-width: 1110px;
+    max-height: 1147px;
+    margin: 0px 215px 0px 215px;
+    background-color: white;
+}
+
+.movies-list{
+    display: grid;
+    grid-template-columns: 454px 454px;
+    column-gap: 36px;
+    list-style: none;
+    padding-left: 0px;
+    margin: 0px;
+    margin-left: 36px;
+
+}
+
+.movi-card{
+    width: 454px;
+    height: 281px;
+    box-shadow: 5px 5px 10px rgba(217, 217, 217, 1);
+    padding-right: 1px;
+    position: relative;
+
+}
+
+.movi-card-description{
+    max-width: 228px;
+    height: 281px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 0px;
+}
+
+.movi-card__img{
+    width: 183px;
+    height: 281px;
+    float: left;
+}
+
+.movi-card-description__film-name{
+    font-size: 20px;
+    line-height: 28px;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    max-width: 180px;
+}
+
+.movi-card-description__release-date{
+    color: rgba(130, 126, 126, 1);
+    font-size: 12px;
+    margin-top: 12px;
+    margin-bottom: 9px;
+}
+
+.movi-card-description__description{
+    margin-top: 7px;
+    line-height: 22px;
+    font-family: 'Inter UI';
+}
+
+.movi-card-description__rating{
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    padding: 8px;
+    border: 2px solid rgba(233, 209, 0, 1);
+    border-radius:  50%;
+}
+
+/* .movi-card-description__button{
+    display: flex;
+} */
+
+
+
+
+
+
+
+/* MoviesList */
+
+.movie{
+    
+    margin-top:  32px;
+}
+
+
+
+
+
+/* search */
+
+.search{
+    width: 938px;
+    height: 40px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    margin-left: 36px;
+    margin-top: 20px;;
+    padding-left: 12px;
+}

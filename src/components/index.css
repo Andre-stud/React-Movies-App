@@ -1,6 +1,8 @@
 @import url("../tabs/tabs.css");
 @import url("../spinner/spinner.css");
 @import url("../pagination/pagination.css");
+@import url("../alert/alert.css");
+@import url("../greetings/greetings.css");
 
 body{
     margin: 0px;
@@ -9,7 +11,7 @@ body{
 
 .body{
     max-width: 1110px;
-    max-height: 1147px;
+    /* max-height: 1147px; */
     margin: 0px 215px 0px 215px;
     background-color: white;
 }

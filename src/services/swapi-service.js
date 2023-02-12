@@ -7,9 +7,9 @@ export default class SwapiService {
     return res.json();
   }
 
-  async getFilms(page) {
+  async getFilms(page, keyword) {
     const res = await this.getResource(
-      `https://api.themoviedb.org/3/search/movie?api_key=bac8faf3324ee1807ccdc2c51e90ac7c&language=en-US&query=return&page=${page}&include_adult=false`
+      `https://api.themoviedb.org/3/search/movie?api_key=bac8faf3324ee1807ccdc2c51e90ac7c&language=en-US&query=${keyword}&page=${page}&include_adult=false`
     );
     const moviesData = res.results.map((el) => (
       el = {

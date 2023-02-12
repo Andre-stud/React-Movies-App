@@ -16,7 +16,6 @@ export default class MoviCard extends Component {
   render() {
     const { rating, filmName, releaseDate, description, posterPath, voteAverage } = this.props.moviesData;
     const releaseDateFns = releaseDate ? format(new Date(releaseDate), 'MMMM dd, yyyy') : null;
-    // const releaseDateFns = format(new Date(releaseDate), 'MMMM dd, yyyy');
     
     return (
       <div className="movi-card">
@@ -29,7 +28,7 @@ export default class MoviCard extends Component {
             <button type='button'>Action</button>
             <button type='button'>Drama</button>
           </div>
-          <p className="movi-card-description__description">{this.reduction(description, 120)}</p>
+          <p className="movi-card-description__description">{this.reduction(description, 115)}</p>
           <Rate
             style={{
               fontSize: '17px',

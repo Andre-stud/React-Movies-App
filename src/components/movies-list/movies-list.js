@@ -6,6 +6,7 @@ import SwapiService from '../../services';
 import Spinner from '../../spinner';
 import Networkrror from '../../alert';
 import Paginationmovieslist from '../../pagination';
+import Greetings from '../../greetings';
 
 export default class MoviesList extends Component {
   swapi = new SwapiService();
@@ -19,26 +20,59 @@ export default class MoviesList extends Component {
   };
 
   componentDidMount() {
-    this.getDataFilms();
+    if(this.props.debouncedMessage !== ''){
+      this.getDataFilms(this.state.page, this.props.debouncedMessage);
+    }
   }
 
+  componentDidUpdate(prevState){
+    if(prevState.debouncedMessage !== this.props.debouncedMessage){
+      this.setState({
+        elem: null,
+        error: null,
+        loading: true,
+      });
+
+      if(this.props.debouncedMessage === '') {
+         this.setState({
+          elem: null,
+          error: null,
+          page: 1,
+          totalPages: null,
+        });
+        return;
+    }
+
+      this.getDataFilms(1, this.props.debouncedMessage);
+
+    }
+  }
+
+  errSetState = ()=> this.setState({
+    elem: null,
+    error: true,
+    loading: null,
+  });
+
   errorNetwork = () => {
-    this.setState({
-      error: true,
-      loading: null,
-    });
+    this.errSetState();
   };
 
-  getDataFilms(page = 1) {
+  getDataFilms(page, keyword) {
     this.swapi
-      .getFilms(page)
+      .getFilms(page, keyword)
       .then((body) => {
-        this.setState({
-          elem: body,
-          loading: null,
-          page,
-          totalPages: body[0].totalPages,
-        });
+        if(body.length !== 0){
+          this.setState({
+            elem: body,
+            loading: null,
+            page,
+            totalPages: body[0].totalPages,
+          });
+        }else{
+          this.errSetState();
+        }
+        
       })
       .catch(this.errorNetwork);
   }
@@ -49,13 +83,15 @@ export default class MoviesList extends Component {
       error: null,
       loading: true,
     });
-    this.getDataFilms(pageNum);
+    this.getDataFilms(pageNum, this.props.debouncedMessage);
   };
 
   render() {
     const { elem, error, loading, page, totalPages } = this.state;
-    const spinner = loading ? <Spinner /> : null;
+    const { debouncedMessage } = this.props;
+    const spinner = loading && debouncedMessage !== ''? <Spinner /> : null;
     const err = error ? <Networkrror /> : null;
+    const greetings = debouncedMessage === '' ? <Greetings /> : null;
 
     const elements = elem
       ? elem.map((el, id) => (
@@ -68,6 +104,7 @@ export default class MoviesList extends Component {
       <>
         <Online>
           <ul className="movies-list">
+            {greetings}
             {spinner}
             {elements}
             {err}

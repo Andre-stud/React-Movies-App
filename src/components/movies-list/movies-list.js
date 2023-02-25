@@ -20,39 +20,38 @@ export default class MoviesList extends Component {
   };
 
   componentDidMount() {
-    if(this.props.debouncedMessage !== ''){
-      this.getDataFilms(this.state.page, this.props.debouncedMessage);
+    if (this.props.value !== '') {
+      this.getDataFilms(this.state.page, this.props.value);
     }
   }
 
-  componentDidUpdate(prevState){
-    if(prevState.debouncedMessage !== this.props.debouncedMessage){
+  componentDidUpdate(prevState) {
+    if (prevState.value !== this.props.value) {
       this.setState({
         elem: null,
         error: null,
         loading: true,
       });
 
-      if(this.props.debouncedMessage === '') {
-         this.setState({
+      if (this.props.value === '') {
+        this.setState({
           elem: null,
           error: null,
           page: 1,
           totalPages: null,
         });
-        return;
-    }
+      }
 
-      this.getDataFilms(1, this.props.debouncedMessage);
-
+      this.getDataFilms(1, this.props.value);
     }
   }
 
-  errSetState = ()=> this.setState({
-    elem: null,
-    error: true,
-    loading: null,
-  });
+  errSetState = () =>
+    this.setState({
+      elem: null,
+      error: true,
+      loading: null,
+    });
 
   errorNetwork = () => {
     this.errSetState();
@@ -62,17 +61,16 @@ export default class MoviesList extends Component {
     this.swapi
       .getFilms(page, keyword)
       .then((body) => {
-        if(body.length !== 0){
+        if (body.length !== 0) {
           this.setState({
             elem: body,
             loading: null,
             page,
             totalPages: body[0].totalPages,
           });
-        }else{
+        } else {
           this.errSetState();
         }
-        
       })
       .catch(this.errorNetwork);
   }
@@ -83,23 +81,39 @@ export default class MoviesList extends Component {
       error: null,
       loading: true,
     });
-    this.getDataFilms(pageNum, this.props.debouncedMessage);
+    this.getDataFilms(pageNum, this.props.value);
   };
 
   render() {
     const { elem, error, loading, page, totalPages } = this.state;
-    const { debouncedMessage } = this.props;
-    const spinner = loading && debouncedMessage !== ''? <Spinner /> : null;
+    const { value, onChangeRated, movieData } = this.props;
+    const spinner = loading && value !== '' ? <Spinner /> : null;
     const err = error ? <Networkrror /> : null;
-    const greetings = debouncedMessage === '' ? <Greetings /> : null;
+    const greetings = value === '' ? <Greetings /> : null;
 
-    const elements = elem
-      ? elem.map((el, id) => (
-            <li className="movie" key={el.id}>
-              <MoviCard id={id} moviesData={el} />
-            </li>
-          ))
-      : null;
+    let elements = null;
+
+    if (!movieData && elem) {
+      elements = elem.map((el, id) => (
+        <li className="movie" key={el.id}>
+          <MoviCard id={id} moviesData={el} onChangeRated={onChangeRated} />
+        </li>
+      ));
+    }
+
+    if (movieData && elem) {
+      elements = elem.map((el, id) => {
+        const idx = movieData.findIndex((e) => e.id === el.id);
+        const oldItem = movieData[idx];
+        const data = oldItem || el;
+        return (
+          <li className="movie" key={el.id}>
+            <MoviCard id={id} moviesData={data} onChangeRated={onChangeRated} />
+          </li>
+        );
+      });
+    }
+
     return (
       <>
         <Online>
@@ -113,7 +127,7 @@ export default class MoviesList extends Component {
         <Offline>
           <Networkrror />
         </Offline>
-        <Paginationmovieslist setPage={this.getPage} pageNum={page} totalPages={totalPages}/>
+        <Paginationmovieslist setPage={this.getPage} pageNum={page} totalPages={totalPages} />
       </>
     );
   }

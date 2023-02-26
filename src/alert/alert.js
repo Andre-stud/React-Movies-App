@@ -1,7 +1,7 @@
 import { Alert } from 'antd';
 
-function Networkrror() {
+function Networkeror() {
   return <Alert className="alert" message="Error 404" description="Not found." type="error" showIcon />;
 }
 
-export default Networkrror;
+export default Networkeror;

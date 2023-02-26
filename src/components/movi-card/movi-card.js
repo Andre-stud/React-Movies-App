@@ -4,8 +4,6 @@ import { Rate } from 'antd';
 
 import GenresFilm from '../genres';
 
-// import defaultImg from './not found.jpg';
-
 export default class MoviCard extends Component {
   state = {
     id: this.props.moviesData.id,
@@ -64,18 +62,8 @@ export default class MoviCard extends Component {
           <div className="movi-card-description__genres">
             <GenresFilm genre={genre} />
           </div>
-          <p className="movi-card-description__description">{this.reduction(description, 205)}</p>
-          <Rate
-            onChange={this.onChangeRated}
-            style={{
-              fontSize: '17px',
-              position: 'absolute',
-              bottom: '15px',
-            }}
-            allowHalf
-            defaultValue={rating}
-            count={10}
-          />
+          <p className="movi-card-description__description">{this.reduction(description, 147)}</p>
+          <Rate onChange={this.onChangeRated} allowHalf defaultValue={rating} count={10} />
         </div>
       </div>
     );

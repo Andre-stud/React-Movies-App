@@ -4,7 +4,7 @@ import { Offline, Online } from 'react-detect-offline';
 import MoviCard from '../movi-card';
 import SwapiService from '../../services';
 import Spinner from '../../spinner';
-import Networkrror from '../../alert';
+import Networkeror from '../../alert';
 import Paginationmovieslist from '../../pagination';
 import Greetings from '../../greetings';
 
@@ -15,7 +15,7 @@ export default class MoviesList extends Component {
     elem: null,
     error: null,
     loading: true,
-    page: 1,
+    page: this.props.currentPage,
     totalPages: null,
   };
 
@@ -25,8 +25,8 @@ export default class MoviesList extends Component {
     }
   }
 
-  componentDidUpdate(prevState) {
-    if (prevState.value !== this.props.value) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
       this.setState({
         elem: null,
         error: null,
@@ -37,12 +37,13 @@ export default class MoviesList extends Component {
         this.setState({
           elem: null,
           error: null,
-          page: 1,
           totalPages: null,
         });
       }
 
-      this.getDataFilms(1, this.props.value);
+      if (this.props.value !== '') {
+        this.getDataFilms(this.state.page, this.props.value);
+      }
     }
   }
 
@@ -81,6 +82,7 @@ export default class MoviesList extends Component {
       error: null,
       loading: true,
     });
+    this.props.onChangePage(pageNum);
     this.getDataFilms(pageNum, this.props.value);
   };
 
@@ -88,7 +90,7 @@ export default class MoviesList extends Component {
     const { elem, error, loading, page, totalPages } = this.state;
     const { value, onChangeRated, movieData } = this.props;
     const spinner = loading && value !== '' ? <Spinner /> : null;
-    const err = error ? <Networkrror /> : null;
+    const err = error ? <Networkeror /> : null;
     const greetings = value === '' ? <Greetings /> : null;
 
     let elements = null;
@@ -125,7 +127,7 @@ export default class MoviesList extends Component {
           </ul>
         </Online>
         <Offline>
-          <Networkrror />
+          <Networkeror />
         </Offline>
         <Paginationmovieslist setPage={this.getPage} pageNum={page} totalPages={totalPages} />
       </>

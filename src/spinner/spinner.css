@@ -1,8 +1,16 @@
-.spinner-box {
-  margin-top: 10%;
-  margin-left: 85%;
-  margin-bottom: 20px;
-  padding: 30px 50px;
-  text-align: center;
-  border-radius: 4px;
+@media (min-width: 420px) {
+  .spinner-box {
+    margin-top: 40px;
+    margin-left: 10em;
+    padding: 30px 50px;
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .spinner-box {
+    margin-top: 10%;
+    margin-left: 85%;
+    margin-bottom: 20px;
+  }
 }

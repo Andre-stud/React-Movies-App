@@ -16,6 +16,7 @@ export default class App extends Component {
     value: '',
     guestSessionId: null,
     genres: null,
+    page: 1,
   };
 
   componentDidMount() {
@@ -47,6 +48,10 @@ export default class App extends Component {
     });
   }
 
+  onChangePage = (value) => {
+    this.setState({ page: value });
+  };
+
   onChangeValue = (value) => {
     this.setState({ inputValue: value });
     this.searchValue(value);
@@ -65,7 +70,7 @@ export default class App extends Component {
   }, 400);
 
   render() {
-    const { inputValue, value, elem, genres } = this.state;
+    const { inputValue, value, elem, genres, page } = this.state;
 
     const items = [
       {
@@ -80,8 +85,13 @@ export default class App extends Component {
               placeholder="Type to search..."
               autoFocus
             />
-
-            <MoviesList movieData={elem} onChangeRated={this.onChangeRated} value={value} />
+            <MoviesList
+              movieData={elem}
+              currentPage={page}
+              onChangeRated={this.onChangeRated}
+              onChangePage={this.onChangePage}
+              value={value}
+            />
           </>
         ),
       },

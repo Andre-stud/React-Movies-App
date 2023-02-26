@@ -1,6 +1,16 @@
-.greetings {
-  display: block;
-  width: 500px;
-  margin-left: 45%;
-  font-size: 40px;
+@media (min-width: 1440px) {
+  .greetings {
+    display: block;
+    width: 320px;
+    margin-left: 45%;
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1440px) {
+  .greetings {
+    width: 550px;
+    font-size: 28px;
+  }
 }

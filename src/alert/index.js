@@ -1,3 +1,3 @@
-import Networkrror from './alert';
+import Networkeror from './alert';
 
-export default Networkrror;
+export default Networkeror;

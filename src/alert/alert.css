@@ -1,5 +1,14 @@
-.alert {
-  width: 140%;
-  margin-left: 35%;
-  margin-top: 20px;
+@media (min-width: 420px) {
+  .alert {
+    width: 385px;
+    margin-left: 15px;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .alert {
+    width: 140%;
+    margin-left: 35%;
+  }
 }

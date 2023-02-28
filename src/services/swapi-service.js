@@ -24,7 +24,6 @@ export default class SwapiService {
           genre: el.genre_ids,
         })
     );
-    // console.log(res);
     return moviesData;
   }
 
@@ -39,7 +38,6 @@ export default class SwapiService {
     const res = await this.getResource(
       'https://api.themoviedb.org/3/genre/movie/list?api_key=bac8faf3324ee1807ccdc2c51e90ac7c&language=en-US'
     );
-    // console.log(res);
     return res;
   }
 

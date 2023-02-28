@@ -90,8 +90,8 @@ export default class MoviesList extends Component {
     const { elem, error, loading, page, totalPages } = this.state;
     const { value, onChangeRated, movieData } = this.props;
     const spinner = loading && value !== '' ? <Spinner /> : null;
-    const err = error ? <Networkeror /> : null;
-    const greetings = value === '' ? <Greetings /> : null;
+    const err = error ? <Networkeror message="Error 404" description="Not found." /> : null;
+    const greetings = !error && value === '' ? <Greetings /> : null;
 
     let elements = null;
 
@@ -127,7 +127,9 @@ export default class MoviesList extends Component {
           </ul>
         </Online>
         <Offline>
-          <Networkeror />
+          <ul className="movies-list">
+            <Networkeror message="Network Error" description="No network connection." />
+          </ul>
         </Offline>
         <Paginationmovieslist setPage={this.getPage} pageNum={page} totalPages={totalPages} />
       </>
